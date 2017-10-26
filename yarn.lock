@@ -4506,10 +4506,6 @@ react-native-maps@0.15.3:
   version "0.15.3"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.15.3.tgz#5d9e0a8e30ecc51dc755b7a3b9d6b6ed5e2dd08c"
 
-react-native-page-swiper@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/react-native-page-swiper/-/react-native-page-swiper-0.3.0.tgz#657eb0e14316052e80055d9a56d28039114ffcc6"
-
 react-native-safe-module@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-module/-/react-native-safe-module-1.2.0.tgz#a23824ca24edc2901913694a76646475113d570d"
@@ -4542,6 +4538,12 @@ react-native-svg@5.3.0:
   dependencies:
     color "^0.11.1"
     lodash "^4.16.6"
+
+react-native-swiper@^1.5.13:
+  version "1.5.13"
+  resolved "https://registry.yarnpkg.com/react-native-swiper/-/react-native-swiper-1.5.13.tgz#fa695cd4ab77b9a9df2d2bfee38ea7274dd07a2e"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-tab-view@^0.0.69:
   version "0.0.69"
