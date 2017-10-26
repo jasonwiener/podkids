@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "PodKids",
+    "version": "0.0.1",
+    "icon": "./assets/icon.png",
+    "sdkVersion": "21.0.0",
+    "loading": {
+      "icon": "./assets/icon.png",
+      "hideExponentText": true
+    }
+  }
+}
