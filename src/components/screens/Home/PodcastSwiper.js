@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import Swiper from 'react-native-swiper'
+import PodcastCover from './PodcastCover'
 
 class PodcastSwiper extends Component {
   render () {
@@ -11,22 +12,20 @@ class PodcastSwiper extends Component {
         loop={false}
         onIndexChanged={index => console.log(`new index: ${index}`)}
       >
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Hello Swiper</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Beautiful</Text>
-        </View>
-        <View style={styles.slide3}>
-          <Text style={styles.text}>And simple</Text>
-        </View>
+        <PodcastCover imageUrl='http://www.br-online.de/podcast/betthupferl/cover.jpg' />
+        <PodcastCover imageUrl='http://www1.wdr.de/mediathek/audio/sendereihen-bilder/kiraka_sendereihenbild100~_v-Podcast.jpg' />
+        <PodcastCover imageUrl='https://www.ohrenbaer.de/content/dam/rbb/ohr/bilder/ohrenbaer_podcast.jpg.jpg/img.jpg' />
       </Swiper>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  wrapper: {},
+  wrapper: {
+    // borderWidth: 10,
+    // borderColor: 'lime',
+    height: 400
+  },
   slide1: {
     flex: 1,
     justifyContent: 'center',
