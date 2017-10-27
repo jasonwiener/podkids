@@ -1,6 +1,8 @@
 {
   "expo": {
     "name": "PodKids",
+    "privacy": "unlisted",
+    "slug": "podkids",
     "version": "0.0.1",
     "icon": "./assets/icon.png",
     "sdkVersion": "21.0.0",

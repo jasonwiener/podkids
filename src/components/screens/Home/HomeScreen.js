@@ -1,56 +1,40 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
-import Swiper from 'react-native-swiper'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import PodcastSwiper from './PodcastSwiper'
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 export default class HomeScreen extends Component {
   static navigationOptions = {
-    title: 'Welcome'
+    header: null,
+    title: 'Podcasts'
   }
+
   render () {
     return (
-      <Swiper
-        style={styles.wrapper}
-        showsButtons
-        loop={false}
-        onIndexChanged={index => console.log(`new index: ${index}`)}
-      >
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Hello Swiper</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Beautiful</Text>
-        </View>
-        <View style={styles.slide3}>
-          <Text style={styles.text}>And simple</Text>
-        </View>
-      </Swiper>
+      <View style={styles.container}>
+        <PodcastSwiper />
+        <TouchableOpacity
+          style={[{ top: getStatusBarHeight() }, styles.settingsContainer]}
+        >
+          <Icon name='settings' style={styles.settingsIcon} />
+        </TouchableOpacity>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  wrapper: {},
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB'
+  container: {
+    flex: 1
   },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5'
+  settingsContainer: {
+    position: 'absolute',
+    right: 15,
+    paddingTop: 10,
+    backgroundColor: 'transparent'
   },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9'
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold'
+  settingsIcon: {
+    fontSize: 40
   }
 })
