@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 import Swiper from 'react-native-swiper'
-import PodcastCover from './PodcastCover'
+import _ from 'lodash'
+import Podcast from './Podcast'
 
 class PodcastSwiper extends Component {
+  _renderSubscriptions () {
+    return _.map(this.props.subscriptions, (meta, rssUrl) => (
+      <Podcast key={rssUrl} rssUrl={rssUrl} />
+    ))
+  }
+
   render () {
     return (
       <Swiper
@@ -12,9 +20,7 @@ class PodcastSwiper extends Component {
         loop={false}
         onIndexChanged={index => console.log(`new index: ${index}`)}
       >
-        <PodcastCover imageUrl='http://www.br-online.de/podcast/betthupferl/cover.jpg' />
-        <PodcastCover imageUrl='http://www1.wdr.de/mediathek/audio/sendereihen-bilder/kiraka_sendereihenbild100~_v-Podcast.jpg' />
-        <PodcastCover imageUrl='https://www.ohrenbaer.de/content/dam/rbb/ohr/bilder/ohrenbaer_podcast.jpg.jpg/img.jpg' />
+        {this._renderSubscriptions()}
       </Swiper>
     )
   }
@@ -51,4 +57,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default PodcastSwiper
+function mapStateToProps (state) {
+  return {
+    subscriptions: state.subscriptions
+  }
+}
+
+export default connect(mapStateToProps)(PodcastSwiper)
