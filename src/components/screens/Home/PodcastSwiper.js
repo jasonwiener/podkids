@@ -4,12 +4,42 @@ import { connect } from 'react-redux'
 import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 import Podcast from './Podcast'
+import { podcastSelected } from '../../../reducers/PlayerReducer'
 
 class PodcastSwiper extends Component {
+  constructor (props) {
+    super(props)
+
+    this._handleIndexChanged = this._handleIndexChanged.bind(this)
+
+    this.state = {
+      rssUrls: _.map(props.subscriptions, (meta, rssUrl) => rssUrl)
+    }
+  }
+
+  componentDidMount () {
+    this._handleIndexChanged(0)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const oldRssUrls = _.map(this.props.subscriptions, (meta, rssUrl) => rssUrl)
+    const newRssUrls = _.map(nextProps.subscriptions, (meta, rssUrl) => rssUrl)
+
+    if (!_.isEqual(oldRssUrls, newRssUrls)) {
+      this.setState({ rssUrls: newRssUrls })
+    }
+  }
+
   _renderSubscriptions () {
-    return _.map(this.props.subscriptions, (meta, rssUrl) => (
+    return this.state.rssUrls.map(rssUrl => (
       <Podcast key={rssUrl} rssUrl={rssUrl} />
     ))
+  }
+
+  _handleIndexChanged (newIndex) {
+    console.log(`new index: ${newIndex}`)
+    console.log(`new rssFeed: ${this.state.rssUrls[newIndex]}`)
+    this.props.dispatch(podcastSelected(this.state.rssUrls[newIndex]))
   }
 
   render () {
@@ -18,7 +48,7 @@ class PodcastSwiper extends Component {
         style={styles.wrapper}
         showsButtons
         loop={false}
-        onIndexChanged={index => console.log(`new index: ${index}`)}
+        onIndexChanged={this._handleIndexChanged}
       >
         {this._renderSubscriptions()}
       </Swiper>
