@@ -2,13 +2,21 @@ import React, { Component } from 'react'
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons'
 import { connect } from 'react-redux'
+import { playButton } from '../../../reducers/PlayerReducer'
 
 class PlayBtn extends Component {
+  componentWillReceiveProps (nextProps) {
+    // console.log(nextProps.podcast)
+  }
+
   render () {
     const icon = this.props.mode === 'play' ? 'stop-circle' : 'play-circle'
 
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => this.props.dispatch(playButton())}
+      >
         <Icon name={icon} style={styles.icon} />
       </TouchableOpacity>
     )
@@ -26,7 +34,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state) {
   return {
-    mode: state.player.mode
+    mode: state.player.mode,
+    podcast: state.subscriptions[state.player.selectedRssUrl]
   }
 }
 

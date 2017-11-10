@@ -10,7 +10,7 @@ class PodcastSwiper extends Component {
   constructor (props) {
     super(props)
 
-    this._handleIndexChanged = this._handleIndexChanged.bind(this)
+    this._handleSwipe = this._handleSwipe.bind(this)
 
     this.state = {
       rssUrls: _.map(props.subscriptions, (meta, rssUrl) => rssUrl)
@@ -18,7 +18,7 @@ class PodcastSwiper extends Component {
   }
 
   componentDidMount () {
-    this._handleIndexChanged(0)
+    this._handleSwipe(0)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -36,7 +36,7 @@ class PodcastSwiper extends Component {
     ))
   }
 
-  _handleIndexChanged (newIndex) {
+  _handleSwipe (newIndex) {
     console.log(`new index: ${newIndex}`)
     console.log(`new rssFeed: ${this.state.rssUrls[newIndex]}`)
     this.props.dispatch(podcastSelected(this.state.rssUrls[newIndex]))
@@ -48,7 +48,7 @@ class PodcastSwiper extends Component {
         style={styles.wrapper}
         showsButtons
         loop={false}
-        onIndexChanged={this._handleIndexChanged}
+        onIndexChanged={this._handleSwipe}
       >
         {this._renderSubscriptions()}
       </Swiper>

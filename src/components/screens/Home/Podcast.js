@@ -22,11 +22,16 @@ class Podcast extends Component {
           source={{
             uri: this.props.podcast.image
           }}
-          style={{ width: 250, height: 250 }}
+          style={styles.cover}
         />
       )
     } else {
-      return <Image source={require('../../../../assets/no_cover.png')} />
+      return (
+        <Image
+          source={require('../../../../assets/no_cover.png')}
+          style={styles.cover}
+        />
+      )
     }
   }
 
@@ -45,6 +50,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DD6EB'
+  },
+  cover: {
+    width: 250,
+    height: 250
   }
 })
 
