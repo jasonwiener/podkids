@@ -5,12 +5,8 @@ import { connect } from 'react-redux'
 import { playButton } from '../../../reducers/PlayerReducer'
 
 class PlayBtn extends Component {
-  componentWillReceiveProps (nextProps) {
-    // console.log(nextProps.podcast)
-  }
-
   render () {
-    const icon = this.props.mode === 'play' ? 'stop-circle' : 'play-circle'
+    const icon = this.props.mode === 'play' ? 'pause-circle' : 'play-circle'
 
     return (
       <TouchableOpacity
@@ -34,8 +30,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state) {
   return {
-    mode: state.player.mode,
-    podcast: state.subscriptions[state.player.selectedRssUrl]
+    mode: state.player.mode
   }
 }
 

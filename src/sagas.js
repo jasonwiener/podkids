@@ -8,7 +8,11 @@ import {
   call,
   all
 } from 'redux-saga/effects'
-import { PLAY_BUTTON } from './reducers/PlayerReducer'
+import {
+  PLAY_BUTTON,
+  PODCAST_SELECTED,
+  modeChanged
+} from './reducers/PlayerReducer'
 import Player from '../src/helpers/Player'
 
 const player = new Player()
@@ -25,14 +29,19 @@ function * handlePlayButton (action) {
 
   const currentMode = yield select(getMode)
 
-  if (currentMode === 'play') {
+  if (currentMode === 'stop') {
     const podcast = yield select(getPodcast)
     const episodeUrl = podcast.episodes[0].enclosure.url
 
     yield player.load(episodeUrl)
     player.play()
-  } else if (currentMode === 'pause') {
+    yield put(modeChanged('play'))
+  } else if (currentMode === 'play') {
     player.pause()
+    yield put(modeChanged('pause'))
+  } else if (currentMode === 'pause') {
+    player.play()
+    yield put(modeChanged('play'))
   }
 }
 
@@ -40,7 +49,16 @@ function * watchPlayButton () {
   yield takeEvery(PLAY_BUTTON, handlePlayButton)
 }
 
+function * watchPodcastSelected () {
+  yield takeEvery(PODCAST_SELECTED, handlePodcastSelected)
+}
+
+function * handlePodcastSelected (action) {
+  player.stop()
+  yield put(modeChanged('stop'))
+}
+
 // single entry point to start all Sagas at once
 export default function * rootSaga () {
-  yield all([watchPlayButton()])
+  yield all([watchPlayButton(), watchPodcastSelected()])
 }

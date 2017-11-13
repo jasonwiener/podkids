@@ -23,6 +23,10 @@ export default class Player {
   }
 
   async load (source) {
+    if (this.playbackInstance) {
+      this.playbackInstance.stopAsync()
+    }
+
     const { sound, status } = await Audio.Sound.create(
       { uri: source },
       this.initialStatus,
@@ -32,14 +36,20 @@ export default class Player {
   }
 
   play () {
-    this.playbackInstance.playAsync()
+    if (this.playbackInstance) {
+      this.playbackInstance.playAsync()
+    }
   }
 
   pause () {
-    this.playbackInstance.pauseAsync()
+    if (this.playbackInstance) {
+      this.playbackInstance.pauseAsync()
+    }
   }
 
   stop () {
-    this.playbackInstance.stopAsync()
+    if (this.playbackInstance) {
+      this.playbackInstance.stopAsync()
+    }
   }
 }

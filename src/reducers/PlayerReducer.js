@@ -1,5 +1,6 @@
 export const PODCAST_SELECTED = 'PODCAST_SELECTED'
 export const PLAY_BUTTON = 'PLAY_BUTTON'
+export const MODE_CHANGED = 'MODE_CHANGED'
 
 export const podcastSelected = rssUrl => {
   return {
@@ -14,6 +15,13 @@ export const playButton = () => {
   }
 }
 
+export const modeChanged = newMode => {
+  return {
+    type: MODE_CHANGED,
+    newMode
+  }
+}
+
 const initialState = {
   selectedRssUrl: '',
   mode: 'stop'
@@ -24,14 +32,13 @@ export default (state = initialState, action) => {
     case PODCAST_SELECTED:
       return {
         ...state,
-        selectedRssUrl: action.rssUrl,
-        mode: 'stop'
+        selectedRssUrl: action.rssUrl
       }
 
-    case PLAY_BUTTON:
+    case MODE_CHANGED:
       return {
         ...state,
-        mode: state.mode === 'play' ? 'pause' : 'play'
+        mode: action.newMode
       }
 
     default:
